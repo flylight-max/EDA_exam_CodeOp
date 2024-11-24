@@ -11,4 +11,6 @@
 #### Hence, to choose the best dataset to train the model in order to get the best prediction, I compared the distribution of the different features between the 3 datasets.  
 #### Of course, because that wasn't the goal of this excersise (figuring which dataset to use to train the model), the second dataset was the one that behaved the same way as the test dataset.  
 #### Nevertheless, in the future, **ALWAYS** keep in mind this:  
-### **Before using .predict() ALWAYS cmpare the distribution of the features between the dataset used to train the model and the dataset you received to do the prediction.** 
+### **Before using .predict() ALWAYS cmpare the distribution of the features between the dataset used to train the model and the dataset you received to do the prediction.**  
+
+In the case I receive two dataset with drastique different distributions of the datasets, I will train an ensemble model on the combined dataset and look for the best performance. Here, I found that Bagging was a good catch. At the end when comparing the predictions between linear regression (fit with the second dataset, the one I was supposed to use) and bagging (fit with the 2 datasets combined), I obtain a very nice correlation with a low variability. 

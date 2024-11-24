@@ -29,6 +29,7 @@ from sklearn.model_selection import KFold,cross_val_score
 from sklearn.linear_model import LinearRegression, Ridge, Lasso
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import BaggingRegressor, RandomForestRegressor
+from sklearn.metrics import mean_squared_error as MSE
 def visu_cv_score(models,X_train,y_train):
     """Returns a boxplot comparing the the value scores (using KFold)
     of the regression models chosen among this list:
@@ -49,3 +50,16 @@ def visu_cv_score(models,X_train,y_train):
     plt.xlabel("Model")
     plt.show()
 
+def rmse_regression_models(models,X_train,y_train,X_test,y_test):
+    """Print the rmse of each model from models.
+    Args:
+        models (dict): A dictionnary where keys correspond to the names of the 
+    models and the values are the instantiated models.
+        X_train,y_train,X_test,y_test (np arrays): np arrays of features (X) and target variables (y)
+    after having spliting the original dataset. 
+    """
+    for name,model in models.items():
+        model.fit(X_train,y_train)
+        y_pred = model.predict(X_test)
+        rmse= MSE(y_test,y_pred) ** (1/2)
+        print("{} Test set rmse: {}".format(name,rmse))
