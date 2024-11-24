@@ -24,3 +24,28 @@ def orig_train_test_df(orig_df,train_df,test_df,col_name):
     col_name_df = pd.DataFrame(my_dict)
     return col_name_df
 
+import matplotlib.pyplot as plt
+from sklearn.model_selection import KFold,cross_val_score
+from sklearn.linear_model import LinearRegression, Ridge, Lasso
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import BaggingRegressor, RandomForestRegressor
+def visu_cv_score(models,X_train,y_train):
+    """Returns a boxplot comparing the the value scores (using KFold)
+    of the regression models chosen among this list:
+    LinearRegression, Ridge, Lasso and DecisionTreeRegressor.
+    Args:
+        models (dict): A dictionnary where keys correspond to the names of the 
+    models and the values are the instantiated models.
+        X_train, y_train (2D numpy arrays): features and target values respectively 
+    after having splitted the dataset to a train dataset and a test dataset.
+    """
+    results = []
+    for model in models.values():
+        kf = KFold(n_splits=6, random_state=1984, shuffle=True)
+        cv_results = cross_val_score(model,X_train, y_train, cv=kf)
+        results.append(cv_results)
+    plt.boxplot(results, labels=models.keys())
+    plt.ylabel("CV R² score")
+    plt.xlabel("Model")
+    plt.show()
+
