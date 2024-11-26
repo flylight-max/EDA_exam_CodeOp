@@ -63,3 +63,14 @@ def rmse_regression_models(models,X_train,y_train,X_test,y_test):
         y_pred = model.predict(X_test)
         rmse= MSE(y_test,y_pred) ** (1/2)
         print("{} Test set rmse: {}".format(name,rmse))
+
+from datetime import datetime
+def to_datetime(df, column_name, date_format):
+    """Switch a time object to a datetime format and then specify to the selected time.
+    Args:
+        df (pandas dataframe): your dataset in a DataFrame format.
+        column_name (str): the name of the column you want to switch to datetime.
+        date_format (str): the format your column is. For example, "%b" your dates
+    are months written in abbrev like "Jan".
+    """
+    df[column_name] = pd.to_datetime(df[column_name], format=date_format)
